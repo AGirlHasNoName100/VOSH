@@ -1,0 +1,235 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link " aria-current="page" routerLink="../dashboard">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " aria-current="page" routerLink="../welfare">Welfare</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="../development">Development</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="../welfare">Women Of Faith</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " routerLink="../welfare">Youth</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " routerLink="../welfare">Sunday School</a>
+    </li>
+  </ul>
+</nav>
+<br>
+<h1 style="text-align: center;">VOSH Departments</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+    <div class="row" [hidden]="!deleteMessage">
+
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <div class="alert alert-info alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Department Record Deleted</strong>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+  Add New Record
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Department Record</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div [hidden]="submitted" style="width: 400px;">
+          <form [formGroup]="deptsaveform" #savedept (ngSubmit)="saveDept(saveDept)">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Department Name*</label>
+              <!-- <input type="text" class="form-control" formControlName= "deptname"> -->
+              <select class="form-control" formControlName="deptname" data-toggle="tooltip" data-placement="right"
+                title="Select Department">
+                <option value="null">--Select Department--</option>
+                <option value="Youth">Youth</option>
+                <option value="Welfare">Welfare</option>
+                <option value="Development">Development</option>
+                <option value="Women of Faith">WOF</option>
+                <option value="Sunday School">Sunday School</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Chairperson*</label>
+              <input type="text" class="form-control" formControlName="chairperson">
+              <div class="alert alert-danger" *ngIf="(DeptChairperson?.touched) && (DeptChairperson?.invalid)"
+                style="margin-top: 5px;">
+                <span *ngIf="DeptChairperson!.errors?.required">Chairperson is Required</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Assistant Chairperson*</label>
+              <input type="text" class="form-control" formControlName="asschairperson">
+              <div class="alert alert-danger" *ngIf="(DeptAsschairperson?.touched) && (DeptAsschairperson?.invalid)"
+                style="margin-top: 5px;">
+                <span *ngIf="DeptAsschairperson!.errors?.required">Assistant Chairperson is Required</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Secretary*</label>
+              <input type="text" class="form-control" formControlName="secretary">
+              <div class="alert alert-danger" *ngIf="(DeptSecretary?.touched) && (DeptSecretary?.invalid)"
+                style="margin-top: 5px;">
+                <span *ngIf="DeptSecretary!.errors?.required">Secretary is Required</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Treasurer*</label>
+              <input type="text" class="form-control" formControlName="treasurer">
+              <div class="alert alert-danger" *ngIf="(DeptTreasurer?.touched) && (DeptTreasurer?.invalid)"
+                style="margin-top: 5px;">
+                <span *ngIf="DeptTreasurer!.errors?.required">Treasurer is Required</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Matron</label>
+              <input type="text" class="form-control" formControlName="matron">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Patron</label>
+              <input type="text" class="form-control" formControlName="patron">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Branch</label>
+              <input type="text" class="form-control" formControlName="branch">
+              <div class="alert alert-danger" *ngIf="(DeptBranch?.touched) && (DeptBranch?.invalid)"
+                style="margin-top: 5px;">
+                <span *ngIf="DeptBranch!.errors?.required">Branch is Required</span>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div [hidden]="!submitted">
+            <h4>Department Record Added SuccessFully!</h4>
+          </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<form layout-align='center center' layout='column' style="display: flex">
+  <div class="form-group" style=" margin-left: auto;">
+    <input type="text" class="form-group" placeholder="Search..." [(ngModel)]="term"
+      [ngModelOptions]="{standalone: true}">
+  </div>
+</form>
+<div [hidden]="!isupdated">
+  <h4>Department Detail Updated!</h4>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Chairperson</th>
+      <th scope="col">Assistant Chairperson</th>
+      <th scope="col">Secretary</th>
+      <th scope="col">Treasurer</th>
+      <th scope="col">Matron</th>
+      <th scope="col">Patron</th>
+      <th scope="col">Branch</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let d of departments| paginate:{itemsPerPage: 10, currentPage:p} | filter:term, let i = index ">
+      <th scope="row">{{i+1}}</th>
+      <td>{{ d.deptname }}</td>
+      <td>{{ d.chairperson }}</td>
+      <td>{{ d.asschairperson }}</td>
+      <td>{{ d.secretary }}</td>
+      <td>{{ d.treasurer }}</td>
+      <td>{{ d.matron }}</td>
+      <td>{{ d.patron }}</td>
+      <td>{{ d.branch }}</td>
+      <td><button data-toggle="modal" data-target="#exampleModal2" class="btn alert-success"
+          (click)="updateDept(d.id)">Edit</button></td>
+      <td><button class="btn alert-danger" (click)="deleteDepart(d.id)">Delete </button></td>
+    </tr>
+  </tbody>
+</table>
+<div id="pagination">
+  <pagination-controls (pageChange)="p=$event"></pagination-controls>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" *ngFor="let d of departments">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      {{d.id}}
+      <form [formGroup]="deptupdateform" #updatedept (ngSubmit)="updateDepartment(d.id)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Department Record</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngFor="let depart of deptlist">
+
+          <div [hidden]="isupdated">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Department Name*</label>
+              <input type="text" class="form-control" formControlName="deptname" [(ngModel)]="depart.deptname">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Chairperson*</label>
+              <input type="text" class="form-control" formControlName="chairperson" [(ngModel)]="depart.chairperson">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Assistant Chairperson*</label>
+              <input type="text" class="form-control" formControlName="asschairperson"
+                [(ngModel)]="depart.asschairperson">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Secretary*</label>
+              <input type="text" class="form-control" formControlName="secretary" [(ngModel)]="depart.secretary">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Treasurer*</label>
+              <input type="text" class="form-control" formControlName="treasurer" [(ngModel)]="depart.treasurer">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Matron</label>
+              <input type="text" class="form-control" formControlName="matron" [(ngModel)]="depart.matron">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Patron</label>
+              <input type="text" class="form-control" formControlName="patron" [(ngModel)]="depart.patron">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Branch</label>
+              <input type="text" class="form-control" formControlName="branch" [(ngModel)]="depart.branch">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="changeisUpdate()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

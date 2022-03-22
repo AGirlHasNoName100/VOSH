@@ -1,0 +1,307 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <ul class="nav nav-pills">
+      <li class="nav-item">
+          <a class="nav-link " aria-current="page" routerLink="../dashboard">Home</a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link " aria-current="page" routerLink="../tithe">Tithes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="../offering">Offerings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="../thanksgiving">Thanksgiving</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="../departments">Departments</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="../members">Members</a>
+      </li>
+    </ul>
+    </nav>
+<h1 style="text-align: center;">VOSH Sponsorships</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+    <div class="row" [hidden]="!deleteMessage">
+
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <div class="alert alert-info alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Sponsorship Record Deleted</strong>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+  Add New Record
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Sponsorship Record</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div [hidden]="submitted" style="width: 400px;">
+          <form [formGroup]="sponsorsaveform" #savesponsor (ngSubmit)="saveSponsor(saveSponsor)">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Member ID</label>
+              <input type="text" class="form-control" formControlName="member">
+              <div class="alert alert-danger" *ngIf="(SponsorMember?.touched) && (SponsorMember?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorMember!.errors?.required">Member ID is Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Name</label>
+              <input type="text" class="form-control" formControlName="name">
+              <div class="alert alert-danger" *ngIf="(SponsorName?.touched) && (SponsorName?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorName!.errors?.required">Name is Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Telephone</label>
+              <input type="text" class="form-control" formControlName="phone">
+              <div class="alert alert-danger" *ngIf="(SponsorPhone?.touched) && (SponsorPhone?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorPhone!.errors?.required">Phone Number is Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Sponsorship For</label>
+              <input type="text" class="form-control" formControlName="type">
+              <div class="alert alert-danger" *ngIf="(SponsorType?.touched) && (SponsorType?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorType!.errors?.required">Field is Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Branch</label>
+              <input type="text" class="form-control" formControlName="branch">
+              <div class="alert alert-danger" *ngIf="(SponsorBranch?.touched) && (SponsorBranch?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorBranch!.errors?.required">Branch is Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Total Amount</label>
+              <input type="text" class="form-control" formControlName="amount">
+              <div class="alert alert-danger" *ngIf="(SponsorAmount?.touched) && (SponsorAmount?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorAmount!.errors?.required">Amount is Required</span>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="form-label">Start Date</label>
+                  <input type="date" class="form-control" formControlName="start">
+                  <div class="alert alert-danger" *ngIf="(SponsorStart?.touched) && (SponsorStart?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorStart!.errors?.required">Start Date is Required</span>
+                </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="form-label">End Date</label>
+                  <input type="date" class="form-control" formControlName="end">
+                  <div class="alert alert-danger" *ngIf="(SponsorEnd?.touched) && (SponsorEnd?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorEnd!.errors?.required">End Date is Required</span>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="form-label">Mother's Name</label>
+                  <input type="text" class="form-control" formControlName="mother">
+                  <div class="alert alert-danger" *ngIf="(SponsorMother?.touched) && (SponsorMother?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorMother!.errors?.required">Mother's Name is Required</span>
+                </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="form-label">Father's Name</label>
+                  <input type="text" class="form-control" formControlName="father">
+                  <div class="alert alert-danger" *ngIf="(SponsorFather?.touched) && (SponsorFather?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="SponsorFather!.errors?.required">Father's Name is Required</span>
+                </div>
+                </div>
+              </div>
+            </div><br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <div [hidden]="!submitted">
+            <h4>Sponsorship Detail Submitted!</h4>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<form layout-align='center center' layout='column' style="display: flex">
+  <div class="form-group" style=" margin-left: auto;">
+    <input type="text" class="form-group" placeholder="Search..." [(ngModel)]="term"
+      [ngModelOptions]="{standalone: true}">
+  </div>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Member ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Sponsorship For</th>
+      <th scope="col">Branch</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sponsor of sponsorships | filter: term, let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{ sponsor.member }}</td>
+      <td>{{ sponsor.name }}</td>
+      <td>{{ sponsor.amount }}</td>
+      <td>{{ sponsor.type }}</td>
+      <td>{{ sponsor.branch }}</td>
+      <td><button data-toggle="modal" data-target="#exampleModal2" class="btn alert-success"
+          (click)="updateSponsor(sponsor.id)">Edit</button></td>
+      <td><button class="btn alert-danger" (click)="deleteSponsorship(sponsor.id)">Delete</button></td>
+      <td><button  data-toggle="modal" data-target="#exampleModal3" class="btn alert-info" (click)="viewDetails(sponsor.id)">View Details</button></td>
+    </tr>
+  </tbody>
+</table>
+<div id="pagination">
+  <pagination-controls (pageChange)="p=$event"></pagination-controls>
+</div>
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sponsorship Record Details </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngFor="let s of details">
+      
+<span><b>Sponsee Name:</b></span><p>{{ s.name }}</p>
+<span><b>Sponsorship For:</b></span><p>{{ s.type }}</p>
+<span><b>Mother's Name:</b></span><p>{{ s.mother }}</p>
+<span><b>Father's Name:</b></span><p>{{ s.father }}</p>
+<span><b>Start Date:</b></span><p>{{ s.start }}</p>
+<span><b>End Date:</b></span><p>{{ s.end }}</p>
+<span><b>Sponsorship Amount:</b></span><p>{{ s.amount }}</p>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" *ngFor="let sponsor of sponsorships">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="sponsorupdateform" #updatesponsor (ngSubmit)="updateSponsorship(sponsor.id)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Sponsorship Record</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngFor="let spo of sponsorlist">
+
+          <div [hidden]="isupdated">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Member ID</label>
+              <input type="text" class="form-control" formControlName="member" [(ngModel)]="spo.member">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Name</label>
+              <input type="text" class="form-control" formControlName="name" [(ngModel)]="spo.name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Telephone</label>
+              <input type="text" class="form-control" formControlName="phone" [(ngModel)]="spo.phone">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Sponsorship For</label>
+              <input type="text" class="form-control" formControlName="type" [(ngModel)]="spo.type">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Branch</label>
+              <input type="text" class="form-control" formControlName="branch" [(ngModel)]="spo.branch">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Total Amount</label>
+              <input type="text" class="form-control" formControlName="amount" [(ngModel)]="spo.amount">
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="form-label">Start Date</label>
+                  <input type="date" class="form-control" formControlName="start" [(ngModel)]="spo.start">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="form-label">End Date</label>
+                  <input type="date" class="form-control" formControlName="end" [(ngModel)]="spo.end">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="form-label">Mother's Name</label>
+                  <input type="text" class="form-control" formControlName="mother" [(ngModel)]="spo.mother">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="form-label">Father's Name</label>
+                  <input type="text" class="form-control" formControlName="father" [(ngModel)]="spo.father">
+                </div>
+              </div>
+            </div><br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <div [hidden]="!isupdated">
+            <h4>Sponsorship Detail Updated!</h4>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="changeisUpdate()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<button style=" margin-left: auto; display: flex;" class="btn btn-success">View Sponsorship Reports</button>

@@ -1,0 +1,184 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <ul class="nav nav-pills">
+      <li class="nav-item">
+          <a class="nav-link " aria-current="page" routerLink="../dashboard">Home</a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link " aria-current="page" routerLink="../tithe">Tithes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="../offering">Offerings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="../thanksgiving">Thanksgiving</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="../departments">Departments</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="../sponsorships">Sponsorships</a>
+      </li>
+    </ul>
+    </nav>
+<h1 style="text-align: center;">VOSH Members</h1>
+<div class="panel panel-default">  
+  <div class="panel-heading">  
+     
+<div class="row" [hidden]="!deleteMessage">  
+             
+  <div class="col-sm-4"></div>  
+  <div class="col-sm-4">  
+          <div class="alert alert-info alert-dismissible">  
+                  <button type="button" class="close" data-dismiss="alert">×</button>  
+                  <strong>Member Record Deleted</strong>  
+          </div>  
+  </div>  
+  <div class="col-sm-4"></div>  
+</div>
+</div>
+</div>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+    Add New Record
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"> 
+        <div class="modal-header">      
+          <h5 class="modal-title" id="exampleModalLabel">Add Member Record</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> 
+        <div class="modal-body">
+          <div [hidden]="submitted" style="width: 400px;">  
+          <form [formGroup]="memberssaveform" #savemember (ngSubmit)="saveMember(saveMember)">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label">Name</label>
+              <input type="text" class="form-control" formControlName= "name">
+              <div class="alert alert-danger" *ngIf="(MemberName?.touched) && (MemberName?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="MemberName!.errors?.required">Name is Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Telephone</label>
+              <input type="text" class="form-control" formControlName= "phone">
+              <div class="alert alert-danger" *ngIf="(MemberPhone?.touched) && (MemberPhone?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="MemberPhone!.errors?.required">Phone Number is Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Branch</label>
+              <input type="text" class="form-control" formControlName= "address">
+              <div class="alert alert-danger" *ngIf="(MemberAddress?.touched) && (MemberAddress?.invalid)"
+                  style="margin-top: 5px;">
+                  <span *ngIf="MemberAddress!.errors?.required">Branch is Required</span>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label">Department</label><br>
+              <select class="form-control" formControlName="department" data-toggle="tooltip"   
+              data-placement="right" title="Select Department">  
+            <option value="null">--Select Department--</option>  
+          <option value="46">Youth</option>
+          <option value="41">Main Church</option>  
+          <option value="Sunday School">Sunday School</option> 
+        </select>  
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        <div [hidden]="!submitted">  
+          <h4>Member Detail Submitted!</h4>  
+      </div>     
+    </div>
+  </div>
+  </div>
+</div>
+<form layout-align='center center' layout='column' style="display: flex">
+  <div class="form-group" style=" margin-left: auto;">
+      <input type="text" class="form-group" placeholder="Search..." [(ngModel)]="term" [ngModelOptions]="{standalone: true}" >
+    </div>
+</form>
+<table class="table">
+<thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Member ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Telephone</th>
+        <th scope="col">Department</th>
+        <th scope="col">Branch</th>
+        <th  scope="col">Edit</th>
+        <th  scope="col">Delete</th>
+        <th  scope="col">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mem of members| paginate:{itemsPerPage: 10, currentPage:p} | filter: term, let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{ mem.id }}</td>
+        <td>{{ mem.name }}</td>
+        <td>{{ mem.phone }}</td>
+        <td>{{ mem.department }}</td>
+        <td>{{ mem.address }}</td>
+        <td><button data-toggle="modal" data-target="#exampleModal2" class="btn alert-success" (click)="updateMemb(mem.id)">Edit</button></td>
+        <td><button class="btn alert-danger"  (click)="deleteMember(mem.id)">Delete</button></td>
+        <td><button class="btn alert-info" >View Details</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="pagination" >
+    <pagination-controls (pageChange)="p=$event" ></pagination-controls>
+  </div> 
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"*ngFor="let mem of members" >
+    <div class="modal-dialog" role="document" >
+      <div class="modal-content">
+        <form [formGroup]="memberupdateform" #updatemember (ngSubmit)="updateMember(mem.id)"> 
+        <div class="modal-header" >      
+          <h5 class="modal-title" id="exampleModalLabel">Edit Member Record</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> 
+        <div class="modal-body" *ngFor="let memb of memberlist">          
+        
+            <div [hidden]="isupdated" > 
+              <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label">Name</label>
+                <input type="text" class="form-control" formControlName= "name" [(ngModel)]="memb.name">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1" class="form-label">Telephone</label>
+                <input type="text" class="form-control" formControlName= "phone" [(ngModel)]="memb.phone">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1" class="form-label">Branch</label>
+                <input type="text" class="form-control" formControlName= "address" [(ngModel)]="memb.address">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1" class="form-label">Department</label>
+                <input type="text" class="form-control" formControlName= "department" [(ngModel)]="memb.department">
+              </div>
+              
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <div [hidden]="!isupdated">  
+            <h4>Member Detail Updated!</h4>  
+        </div>   
+        </div>  
+      </form> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="changeisUpdate()">Close</button>
+        </div>   
+    </div>
+  </div>
+  </div>
+  <button style=" margin-left: auto; display: flex;" class="btn btn-success">View Member Reports</button>

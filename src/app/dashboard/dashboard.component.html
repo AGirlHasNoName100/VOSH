@@ -1,0 +1,95 @@
+
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Vosh Dashboard</title>
+
+  <!-- Bootstrap core CSS 
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+   Custom styles for this template 
+  <link href="assets/css/simple-sidebar.css" rel="stylesheet">-->
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+    <ng-container *ngIf="show">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Welcome VOSH </div><br>
+      <div class="list-group list-group-flush">
+        <a routerLink="../dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a routerLink="../members" class="list-group-item list-group-item-action bg-light">Members</a>
+        <a routerLink="../departments" class="list-group-item list-group-item-action bg-light">Departments</a>
+        <a routerLink="../sponsorships" class="list-group-item list-group-item-action bg-light">Sponsorships</a>
+        <a routerLink="../activity" class="list-group-item list-group-item-action bg-light">Activity</a>
+        <a routerLink="../reports" class="list-group-item list-group-item-action bg-light">Reports</a>
+     
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    </ng-container>
+    
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-success" (click)="toggle()" id="bt">{{buttonName}}</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+
+      <div class="container-fluid">
+        <br>
+        <h3>Financial Records</h3>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Tithes</h5>
+                <p class="card-text">Add, Edit and View tithe records</p>
+                <a class="btn btn-primary" routerLink="../tithe"> Go To Tithes</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Offerings</h5>
+                <p class="card-text">Add, Edit and View Offering records</p>
+                <a class="btn btn-primary" routerLink="../offering"> Go To Offerings</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Thanks Giving</h5>
+                <p class="card-text">Add, Edit and View Offering records</p>
+                <a class="btn btn-primary" routerLink="../thanksgiving">  Go To ThanksGiving</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Amount Collected</h5>
+                <p class="card-text">Total Collected is: </p>
+                <h3>AMOUNT</h3>
+              </div>
+            </div>
+          </div>
+        </div><br>
+       
+        <h2>Quick Access</h2>
+        <hr>
+  </div>
+  </div>
